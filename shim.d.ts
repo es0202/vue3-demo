@@ -1,8 +1,10 @@
 declare module "*.vue" {
-  import { Component } from "vue";
-  const component: Component;
+  import { defineComponent } from "vue";
+  const component: defineComponent;
   export default component;
 }
 interface Window{
-  vm:any
+  vm:any;
+  router:any;
+  store:any;
 }

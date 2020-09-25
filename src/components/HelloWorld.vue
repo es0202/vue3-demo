@@ -1,19 +1,35 @@
 <template>
   <h1>{{ msg }}</h1>
-  <button @click="count++">count is: {{ count }}</button>
-  <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
+  <button @click="state.count++">count is: {{ state.count }}</button>
+  <!-- <button @click="count++">count is: {{ count }}</button> -->
+  <p>
+    Edit
+    <code>components/HelloWorld.vue</code> to test hot module replacement.
+  </p>
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, reactive, ref, toRefs } from 'vue';
+export default defineComponent({
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
   },
-  data() {
-    return {
-      count: 0
-    }
-  }
-}
+  // data() {
+  //   return {
+  //     count: 0
+  //   }
+  // }
+  setup(prop) {
+    //保持响应式
+    // const count = ref(0);
+    // return {count}
+
+    const state = reactive({ count: 0 });
+    //不能解构，若要渲染时直接访问count需要调用toRefs API
+    // return toRefs(state)
+    //或者直接返回reactive的对象，并在渲染时访问state.count
+    return { state };
+  },
+});
 </script>

@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 // 在 Vue-router新版本中，需要使用createRouter来创建路由
 export default createRouter({
@@ -6,6 +6,9 @@ export default createRouter({
   history: createWebHashHistory(),
   // 路由地址
   routes: [{
+    path: '',
+    component: () => import('/@/components/HelloWorld.vue')
+  }, {
     path: '/todo',
     // 必须添加.vue后缀
     component: () => import('../views/todo.vue')
