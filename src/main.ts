@@ -3,9 +3,12 @@ import App from './App.vue'
 import './index.css'
 import router from './router/index'
 import store from './store/index'
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css';
 
 //createApp(App).mount('#app')
 const app = createApp(App)
+app.use(Antd)
 window.vm = app
 window.router = router
 window.store = store
@@ -13,15 +16,3 @@ window.store = store
 app.use(router)
 app.use(store)
 app.mount('#app')
-
-interface obj {
-  one: number,
-  two: number
-}
-function add({ one, two }: obj) {
-  return one + two;
-}
-
-const total = add({ one: 1, two: 2 });
-const xiaojiejie: (string | number)[] = ["dajiao", "teacher", 28];
-const arr: [string, string, number] = ["dajiao", "teacher", 28];
