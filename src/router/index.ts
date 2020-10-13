@@ -11,10 +11,12 @@ export default createRouter({
   }, {
     path: '/todo',
     // 必须添加.vue后缀
-    component: () => import('../views/todo.vue')
+    component: () => import('../views/todo/index.vue')
   }, {
     path: '/test',
-    // 必须添加.vue后缀
     component: () => import('../test')
+  }, {
+    path: '/login',
+    component: () => import('../views/login/index.vue')
   }]
 })

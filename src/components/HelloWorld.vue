@@ -26,21 +26,25 @@ export default defineComponent({
     // const count = ref(0);
     // return {count}
 
-    const state = reactive({ count: 0 ,name:''});
-    watchEffect(() => {
-      console.log(state.count);
-      console.log(state.name);
-    },{
-      flush:'post'
-    });
-    function handler(){
+    const state = reactive({ count: 0, name: '' });
+    watchEffect(
+      () => {
+        console.log(state.count);
+        console.log(state.name);
+      },
+      {
+        flush: 'post',
+      }
+    );
+    function handler() {
       state.count++;
-      state.name+='s'
+      state.name += 's';
     }
     //不能解构，若要渲染时直接访问count需要调用toRefs API
     // return toRefs(state)
     //或者直接返回reactive的对象，并在渲染时访问state.count
-    return { state,handler };
+
+    return { state, handler };
   },
 });
 </script>
