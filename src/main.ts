@@ -1,4 +1,6 @@
+// ///<reference path="../shim.d.ts" />
 import { createApp } from 'vue'
+//没有声明.vue模块，编译错误找不到App.vue模块
 import App from './App.vue'
 import './index.css'
 import router from './router/index'
