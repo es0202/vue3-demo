@@ -2,6 +2,7 @@
   <h1>{{ msg }}</h1>
   <button @click="handler">count is: {{ state.name }}</button>
   <button @click="state.count++">count is: {{ state.count }}</button>
+
   <!-- <button @click="count++">count is: {{ count }}</button> -->
   <p>
     Edit
@@ -15,13 +16,14 @@ export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: String,
+    arr: Array,
   },
   // data() {
   //   return {
   //     count: 0
   //   }
   // }
-  setup(prop) {
+  setup(prop,{ emit }) {
     //保持响应式
     // const count = ref(0);
     // return {count}
@@ -31,6 +33,7 @@ export default defineComponent({
       () => {
         console.log(state.count);
         console.log(state.name);
+        emit("update:arr",state.count)
       },
       {
         flush: 'post',

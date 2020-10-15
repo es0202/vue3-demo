@@ -7,7 +7,7 @@ export default createRouter({
   // 路由地址
   routes: [{
     path: '',
-    component: () => import('/@/components/HelloWorld.vue')
+    component: () => import('../views/layout/index.vue')
   }, {
     path: '/todo',
     // 必须添加.vue后缀

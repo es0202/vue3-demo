@@ -4,9 +4,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "tsc"  
+    "start": "tsc"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^5.1.5",
     "ant-design-vue": "^2.0.0-beta.10",
     "vite": "^1.0.0-rc.4",
     "vue": "^3.0.0-rc.1",
