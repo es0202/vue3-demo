@@ -8,10 +8,12 @@
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
   </p>
+  <!-- //TODO svg-sprite+<svg-icon>组件 -->
+  <img src="../assets/computer.svg" width="20" height="20" alt />
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, watchEffect } from 'vue';
+import { defineComponent, reactive, ref, toRef, toRefs, watchEffect } from 'vue';
 export default defineComponent({
   name: 'HelloWorld',
   props: {
@@ -23,17 +25,16 @@ export default defineComponent({
   //     count: 0
   //   }
   // }
-  setup(prop,{ emit }) {
+  setup(props, { emit }) {
     //保持响应式
     // const count = ref(0);
     // return {count}
-
     const state = reactive({ count: 0, name: '' });
     watchEffect(
       () => {
         console.log(state.count);
         console.log(state.name);
-        emit("update:arr",state.count)
+        emit('update:arr', state.count);
       },
       {
         flush: 'post',
