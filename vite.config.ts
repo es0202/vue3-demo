@@ -1,14 +1,21 @@
-import { SharedConfig } from 'vite';
+import { ServerConfig } from 'vite';
 import path from 'path';
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr);
 };
 
-const config: SharedConfig = {
+const config: ServerConfig = {
   alias: {
     '/@/': pathResolve('./src'),
   },
+  proxy:{
+    '/api':{
+      target:"http://localhost:3000",
+      changeOrigin:true,
+      rewrite: path => path.replace(/^\/api/, '')
+    }
+  }
 };
 
 module.exports = config;
