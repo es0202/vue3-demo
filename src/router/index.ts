@@ -12,10 +12,14 @@ export default createRouter({
     },
     {
       path: '/home',
-      component: () => import('../views/layout/index.vue'),
+      component: () => import('../views/layout/home.vue'),
       children: [
         {
           path: '',
+          component: () => import('../views/login/index.vue'),
+        },
+        {
+          path: 'hello',
           component: () => import('/@/components/HelloWorld.vue'),
         },
       ],
@@ -29,9 +33,6 @@ export default createRouter({
       path: '/test',
       component: () => import('../test'),
     },
-    {
-      path: '/login',
-      component: () => import('../views/login/index.vue'),
-    },
+    {},
   ],
 })

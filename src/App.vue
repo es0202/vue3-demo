@@ -35,12 +35,12 @@ export default {
       myarr.value.push(val);
       console.log('myarrvalue:' + Object.prototype.toString.apply(myarr.value));
     };
-    register({ url: '/user/register', method: 'post', data: { username: '111', password: '123' } })
-      .then((res: Res) => console.log(res.Msg))
-      .catch((err: any) => {
-        errormsg.value = err;
-        console.log('err:' + err);
-      });
+    // register({ url: '/user/register', method: 'post', data: { username: "admin2", password: '123' } })
+    //   .then((res: Res) => console.log(res.Msg))
+    //   .catch((err: any) => {
+    //     errormsg.value = err;
+    //     console.log('err:' + err);
+    //   });
     return { myarr, handler, errormsg };
   },
   components: {

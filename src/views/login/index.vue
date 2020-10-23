@@ -24,32 +24,76 @@ export default defineComponent({
   },
 })-->
 <template>
-  <a-form>
-    <a-form-item required :wrapperCol="formWrapperCol">
-      <a-input v-model:value="form.username" placeholder="用户名" />
-    </a-form-item>
-    <a-form-item required :wrapperCol="formWrapperCol">
-      <a-input v-model:value="form.password" placeholder="密码" />
-    </a-form-item>
-    <a-form-item>
-      <a-button type="primary">Submit</a-button>
-    </a-form-item>
-  </a-form>
+  <a-tabs @change="callback">
+    <a-tab-pane key="login" tab="登录">
+      <a-form :rules="formRules" :wrapperCol="formWrapperCol">
+        <a-form-item required name="username">
+          <a-input v-model:value="form.username" placeholder="用户名" />
+        </a-form-item>
+        <a-form-item required name="password">
+          <a-input v-model:value="form.password" placeholder="密码" />
+        </a-form-item>
+        <a-form-item>
+          <a-button type="primary" >Submit</a-button>
+        </a-form-item>
+      </a-form>
+    </a-tab-pane>
+    <a-tab-pane key="loginup" tab="注册">
+      <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+        <a-form-item required label="昵称">
+          <a-input v-model:value="registerForm.username" />
+        </a-form-item>
+        <a-form-item required label="密码">
+          <a-input v-model:value="registerForm.password" />
+        </a-form-item>
+        <a-form-item required label="确认密码">
+          <a-input v-model:value="registerForm.repassword" />
+        </a-form-item>
+        <a-form-item :wrapper-col="itemWrapCol">
+          <a-button type="primary" block>注册</a-button>
+        </a-form-item>
+      </a-form>
+    </a-tab-pane>
+  </a-tabs>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue';
 export default defineComponent({
-  data() {},
+  data() {
+    return {
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 10,
+      },
+      itemWrapCol: {
+        span: 6,
+        offset: 8,
+      },
+      formWrapperCol: {
+        span: 12,
+        offset: 6,
+      },
+      formRules:{
+
+      }
+    };
+  },
   setup() {
     const form = reactive({
-      username: '111',
-      password: '222',
+      username: 'admin',
+      password: '111',
     });
-    const formWrapperCol = reactive({
-      xs: { span: 24, offset: 0 }, //xs不管怎样，右侧都不再有空
-      sm: { span: 10, offset: 7 },
+    const registerForm = reactive({
+      username: '',
+      password: '',
+      repassword: '',
     });
-    return { form, formWrapperCol };
+    const callback = (val: string) => {
+      console.log(val);
+    };
+    return { form, callback, registerForm };
   },
 });
 </script>
