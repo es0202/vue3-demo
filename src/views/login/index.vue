@@ -27,11 +27,11 @@ export default defineComponent({
   <a-tabs class="tab-container" @change="callback">
     <a-tab-pane key="login" tab="登录">
       <a-form ref="validateForm" :wrapperCol="formWrapperCol">
-        <a-form-item required v-bind="validateInfos.username">
+        <a-form-item v-bind="validateInfos.username">
           <a-input v-model:value="form.username" placeholder="用户名" />
         </a-form-item>
         <a-form-item v-bind="validateInfos.password">
-          <a-input v-model:value="form.password" @blur="blurHandler" placeholder="密码" />
+          <a-input v-model:value="form.password" placeholder="密码" />
         </a-form-item>
         <a-form-item :wrapper-col="submitWrapCol">
           <a-button type="primary" block @click="onSubmit">Submit</a-button>
@@ -40,17 +40,17 @@ export default defineComponent({
     </a-tab-pane>
     <a-tab-pane key="loginup" tab="注册">
       <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-form-item required label="昵称" name="regName">
+        <a-form-item label="昵称" v-bind="regValidataInfos.username">
           <a-input v-model:value="registerForm.username" />
         </a-form-item>
-        <a-form-item required label="密码" name="regPass">
-          <a-input v-model:value="registerForm.password" />
+        <a-form-item label="密码" v-bind="regValidataInfos.password">
+          <a-input v-model:value="registerForm.password" @blur="blurHandler" />
         </a-form-item>
-        <a-form-item required label="确认密码" name="rePass">
-          <a-input v-model:value="registerForm.repassword" />
+        <a-form-item label="确认密码" v-bind="regValidataInfos.repassword">
+          <a-input v-model:value="registerForm.repassword" @blur="repeatHandler" />
         </a-form-item>
         <a-form-item :wrapper-col="itemWrapCol">
-          <a-button type="primary" block>注册</a-button>
+          <a-button type="primary" @click="registerHandler" block>注册</a-button>
         </a-form-item>
       </a-form>
     </a-tab-pane>
@@ -60,7 +60,7 @@ export default defineComponent({
 import { ref, defineComponent, reactive, toRefs, toRaw } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import { message } from 'ant-design-vue';
-import { login } from '/@/api/login';
+import { login, register } from '/@/api/login';
 import { useRouter } from 'vue-router';
 export default defineComponent({
   data() {
@@ -92,6 +92,11 @@ export default defineComponent({
       Msg: string;
     }
     const router = useRouter();
+    //!tab切换回调
+    const callback = (val: string) => {
+      console.log(val);
+    };
+    //!登录
     const form = reactive({
       username: '',
       password: '',
@@ -108,17 +113,8 @@ export default defineComponent({
           required: true,
           message: 'Please input password',
         },
-        { min: 3, max: 10, trigger: 'blur', required: true, message: 'Length should be 3 to 10' },
       ],
     });
-    const registerForm = reactive({
-      username: '',
-      password: '',
-      repassword: '',
-    });
-    const callback = (val: string) => {
-      console.log(val);
-    };
     //表单校验
     const { validate, validateInfos } = useForm(form, rulesForm);
     const onSubmit = (e: Event) => {
@@ -135,18 +131,94 @@ export default defineComponent({
               router.push({
                 path: '/home/hello',
               });
+            } else {
+              message.error(data.Msg);
             }
           });
+        })
+        .catch((err) => {
+          console.log('error', err.message);
+        });
+    };
+    //!注册
+    const registerForm = reactive({
+      username: '',
+      password: '',
+      repassword: '',
+    });
+    const rulesRegForm = reactive({
+      username: [
+        {
+          required: true,
+          message: 'Please input username',
+        },
+      ],
+      password: [
+        {
+          required: true,
+          message: 'Please input password',
+        },
+        { min: 3, max: 10, trigger: 'blur', required: true, message: 'Length should be 3 to 10' },
+      ],
+      repassword: [
+        {
+          required: true,
+          message: 'Please repeat password',
+        },
+        {
+          trigger: 'blur',
+          validator: async (rule: any, value: any) => {
+            if (registerForm.repassword == registerForm.password) {
+              return Promise.resolve();
+            } else {
+              return Promise.reject('The password entered twice is inconsistent.');
+            }
+          },
+        },
+      ],
+    });
+    //再次执行useForm和第一次的不一样
+    const regUseForm = useForm(registerForm, rulesRegForm);
+    const regValidataInfos = regUseForm.validateInfos;
+    const regValidate = regUseForm.validate;
+    //密码失焦校验
+    const blurHandler = (e: Event) => {
+      regValidate('password', { trigger: 'blur' })
+        .then(() => {
+          console.log(toRaw(rulesForm));
         })
         .catch((err) => {
           console.log('error', err);
         });
     };
-    //密码失焦校验
-    const blurHandler = (e: Event) => {
-      validate('password', { trigger: 'blur' })
+    //重复密码失焦校验
+    const repeatHandler = (e: Event) => {
+      regValidate('repassword', { trigger: 'blur' })
         .then(() => {
-          console.log(toRaw(rulesForm));
+          console.log(toRaw(rulesRegForm));
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    };
+    const registerHandler = (e: Event) => {
+      e.preventDefault();
+      regValidate()
+        .then(() => {
+          register({
+            url: '/user/register',
+            data: registerForm,
+            method: 'post',
+          }).then((data: ResultModel) => {
+            if (data.Code == 0) {
+              message.success(data.Msg);
+              router.push({
+                path: '/home/hello',
+              });
+            } else {
+              message.error(data.Msg);
+            }
+          });
         })
         .catch((err) => {
           console.log('error', err);
@@ -158,7 +230,10 @@ export default defineComponent({
       registerForm,
       onSubmit,
       validateInfos,
+      regValidataInfos,
       blurHandler,
+      repeatHandler,
+      registerHandler,
     };
   },
 });
