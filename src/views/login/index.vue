@@ -24,29 +24,29 @@ export default defineComponent({
   },
 })-->
 <template>
-  <a-tabs @change="callback">
+  <a-tabs class="tab-container" @change="callback">
     <a-tab-pane key="login" tab="登录">
-      <a-form :rules="formRules" :wrapperCol="formWrapperCol">
-        <a-form-item required name="username">
+      <a-form ref="validateForm" :wrapperCol="formWrapperCol">
+        <a-form-item required v-bind="validateInfos.username">
           <a-input v-model:value="form.username" placeholder="用户名" />
         </a-form-item>
-        <a-form-item required name="password">
-          <a-input v-model:value="form.password" placeholder="密码" />
+        <a-form-item v-bind="validateInfos.password">
+          <a-input v-model:value="form.password" @blur="blurHandler" placeholder="密码" />
         </a-form-item>
-        <a-form-item>
-          <a-button type="primary" >Submit</a-button>
+        <a-form-item :wrapper-col="submitWrapCol">
+          <a-button type="primary" block @click="onSubmit">Submit</a-button>
         </a-form-item>
       </a-form>
     </a-tab-pane>
     <a-tab-pane key="loginup" tab="注册">
       <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-form-item required label="昵称">
+        <a-form-item required label="昵称" name="regName">
           <a-input v-model:value="registerForm.username" />
         </a-form-item>
-        <a-form-item required label="密码">
+        <a-form-item required label="密码" name="regPass">
           <a-input v-model:value="registerForm.password" />
         </a-form-item>
-        <a-form-item required label="确认密码">
+        <a-form-item required label="确认密码" name="rePass">
           <a-input v-model:value="registerForm.repassword" />
         </a-form-item>
         <a-form-item :wrapper-col="itemWrapCol">
@@ -57,7 +57,11 @@ export default defineComponent({
   </a-tabs>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue';
+import { ref, defineComponent, reactive, toRefs, toRaw } from 'vue';
+import { useForm } from '@ant-design-vue/use';
+import { message } from 'ant-design-vue';
+import { login } from '/@/api/login';
+import { useRouter } from 'vue-router';
 export default defineComponent({
   data() {
     return {
@@ -69,21 +73,43 @@ export default defineComponent({
       },
       itemWrapCol: {
         span: 6,
-        offset: 8,
+        offset: 9,
+      },
+      submitWrapCol: {
+        span: 4,
+        offset: 10,
       },
       formWrapperCol: {
         span: 12,
         offset: 6,
       },
-      formRules:{
-
-      }
     };
   },
   setup() {
+    //接口返回数据定义
+    interface ResultModel {
+      Code: number;
+      Msg: string;
+    }
+    const router = useRouter();
     const form = reactive({
-      username: 'admin',
-      password: '111',
+      username: '',
+      password: '',
+    });
+    const rulesForm = reactive({
+      username: [
+        {
+          required: true,
+          message: 'Please input username',
+        },
+      ],
+      password: [
+        {
+          required: true,
+          message: 'Please input password',
+        },
+        { min: 3, max: 10, trigger: 'blur', required: true, message: 'Length should be 3 to 10' },
+      ],
     });
     const registerForm = reactive({
       username: '',
@@ -93,7 +119,58 @@ export default defineComponent({
     const callback = (val: string) => {
       console.log(val);
     };
-    return { form, callback, registerForm };
+    //表单校验
+    const { validate, validateInfos } = useForm(form, rulesForm);
+    const onSubmit = (e: Event) => {
+      e.preventDefault();
+      validate()
+        .then(() => {
+          login({
+            url: '/user/login',
+            data: form,
+            method: 'post',
+          }).then((data: ResultModel) => {
+            if (data.Code == 0) {
+              message.success(data.Msg);
+              router.push({
+                path: '/home/hello',
+              });
+            }
+          });
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    };
+    //密码失焦校验
+    const blurHandler = (e: Event) => {
+      validate('password', { trigger: 'blur' })
+        .then(() => {
+          console.log(toRaw(rulesForm));
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    };
+    return {
+      form,
+      callback,
+      registerForm,
+      onSubmit,
+      validateInfos,
+      blurHandler,
+    };
   },
 });
 </script>
+<style>
+.ant-form-explain,
+.ant-tabs-nav-wrap {
+  text-align: left !important;
+}
+.tab-container {
+  width: 60%;
+  margin: auto;
+  height: 400px;
+}
+</style>

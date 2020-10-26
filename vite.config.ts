@@ -15,7 +15,12 @@ const config: ServerConfig = {
       changeOrigin:true,
       rewrite: path => path.replace(/^\/api/, '')
     }
-  }
+  },
+  optimizeDeps: {
+    include: [
+        '@ant-design-vue/use'
+    ]
+}
 };
 
 module.exports = config;
