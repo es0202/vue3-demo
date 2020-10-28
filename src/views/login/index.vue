@@ -57,7 +57,7 @@ export default defineComponent({
   </a-tabs>
 </template>
 <script lang="ts">
-import { ref, defineComponent, reactive, toRefs, toRaw } from 'vue';
+import { ref, defineComponent, reactive, toRefs, toRaw, onUnmounted } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import { message } from 'ant-design-vue';
 import { login, register } from '/@/api/login';
@@ -121,11 +121,7 @@ export default defineComponent({
       e.preventDefault();
       validate()
         .then(() => {
-          login({
-            url: '/user/login',
-            data: form,
-            method: 'post',
-          }).then((data: ResultModel) => {
+          login(form).then((data: ResultModel) => {
             if (data.Code == 0) {
               message.success(data.Msg);
               router.push({
@@ -205,11 +201,7 @@ export default defineComponent({
       e.preventDefault();
       regValidate()
         .then(() => {
-          register({
-            url: '/user/register',
-            data: registerForm,
-            method: 'post',
-          }).then((data: ResultModel) => {
+          register(registerForm).then((data: ResultModel) => {
             if (data.Code == 0) {
               message.success(data.Msg);
               router.push({
@@ -224,6 +216,7 @@ export default defineComponent({
           console.log('error', err);
         });
     };
+    
     return {
       form,
       callback,

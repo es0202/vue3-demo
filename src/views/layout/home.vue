@@ -8,11 +8,12 @@
       </a-menu>
     </a-layout-header>
     <a-layout-content class="layout-content">
-      <router-view v-slot="{ Component }">
+      <router-view></router-view>
+      <!-- <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
-      </router-view>
+      </router-view> -->
     </a-layout-content>
   </a-layout>
 </template>

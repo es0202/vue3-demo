@@ -30,6 +30,10 @@ export class VAxios {
     this.axiosInstance.interceptors.response.use(
       (response: AxiosResponse<any>) => {
         const res = response.data
+        if (res.Code == 999) {
+          //未登录
+          window.location.href = '/home/'
+        }
         return res
       },
       (error) => {

@@ -1,26 +1,25 @@
-import { ServerConfig } from 'vite';
-import path from 'path';
+import { ServerConfig } from 'vite'
+import path from 'path'
 
 const pathResolve = (pathStr: string) => {
-  return path.resolve(__dirname, pathStr);
-};
+  return path.resolve(__dirname, pathStr)
+}
 
 const config: ServerConfig = {
+  port: 3001,
   alias: {
     '/@/': pathResolve('./src'),
   },
-  proxy:{
-    '/api':{
-      target:"http://localhost:3000",
-      changeOrigin:true,
-      rewrite: path => path.replace(/^\/api/, '')
-    }
+  proxy: {
+    '/api': {
+      target: 'http://localhost:3000',
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api/, ''),
+    },
   },
   optimizeDeps: {
-    include: [
-        '@ant-design-vue/use'
-    ]
+    include: ['@ant-design-vue/use'],
+  },
 }
-};
 
-module.exports = config;
+module.exports = config
