@@ -13,7 +13,7 @@
         <keep-alive>
           <component :is="Component" />
         </keep-alive>
-      </router-view> -->
+      </router-view>-->
     </a-layout-content>
   </a-layout>
 </template>
@@ -35,6 +35,7 @@ export default defineComponent({
 .layout-container {
   height: 100%;
   background-color: #f4eeff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%23cca8e9' fill-opacity='0.5' font-family='Chilanka, cursive' text-anchor='middle' dominant-baseline='middle'%3EHello~%3C/text%3E%3C/svg%3E");
 }
 .layout-header {
   height: 60px;
