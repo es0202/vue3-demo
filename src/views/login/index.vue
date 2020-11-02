@@ -24,6 +24,7 @@ export default defineComponent({
   },
 })-->
 <template>
+<div style="background:#fff;height:100%">
   <a-tabs class="tab-container" @change="callback">
     <a-tab-pane key="login" tab="登录">
       <a-form ref="validateForm" :wrapperCol="formWrapperCol">
@@ -55,6 +56,7 @@ export default defineComponent({
       </a-form>
     </a-tab-pane>
   </a-tabs>
+  </div>
 </template>
 <script lang="ts">
 import { ref, defineComponent, reactive, toRefs, toRaw, onUnmounted } from 'vue';
@@ -216,7 +218,7 @@ export default defineComponent({
           console.log('error', err);
         });
     };
-    
+
     return {
       form,
       callback,

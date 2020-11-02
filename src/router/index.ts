@@ -20,7 +20,7 @@ export default createRouter({
         },
         {
           path: 'hello',
-          component: () => import('/@/components/HelloWorld.vue'),
+          component: () => import('../views/hello/index.vue'),
         },
       ],
     },

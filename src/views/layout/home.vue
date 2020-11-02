@@ -43,7 +43,7 @@ export default defineComponent({
 }
 .layout-content {
   margin: 35px 50px;
-  background-color: #fff;
+  background-color: transparent;
 }
 
 .header-menu {
