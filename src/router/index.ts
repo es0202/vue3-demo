@@ -8,7 +8,7 @@ export default createRouter({
   routes: [
     {
       path: '',
-      redirect: '/home',
+      redirect: '/index',
     },
     {
       path: '/home',
@@ -16,6 +16,10 @@ export default createRouter({
       children: [
         {
           path: '',
+          redirect: '/home/hello',
+        },
+        {
+          path: 'login',
           component: () => import('../views/login/index.vue'),
         },
         {
@@ -33,6 +37,15 @@ export default createRouter({
       path: '/test',
       component: () => import('../test'),
     },
-    {},
+    {
+      path: '/index',
+      component: () => import('../views/layout/index.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../views/index/index.vue'),
+        },
+      ],
+    },
   ],
 })

@@ -3,7 +3,7 @@
     <a-layout-header class="layout-header">
       <a-menu mode="horizontal" v-model:selectedKeys="selectedKeys1" class="header-menu">
         <a-menu-item class="menu-item" v-for="item in list" :key="item">
-          <router-link :to="'/home/'+item">{{item==''?'Home':'Hello'}}</router-link>
+          <router-link :to="'/home/'+item">{{item=='login'?'Home':'Hello'}}</router-link>
         </a-menu-item>
       </a-menu>
     </a-layout-header>
@@ -22,7 +22,7 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   data() {
     return {
-      list: ['', 'hello'],
+      list: ['login', 'hello'],
     };
   },
   setup() {
@@ -31,7 +31,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .layout-container {
   height: 100%;
   background-color: #f4eeff;
@@ -42,8 +42,9 @@ export default defineComponent({
   background-color: #cca8e9;
 }
 .layout-content {
-  margin: 35px 50px;
+  /* margin: 35px 50px; */
   background-color: transparent;
+  overflow: hidden;
 }
 
 .header-menu {
@@ -51,6 +52,13 @@ export default defineComponent({
   text-align: left;
   padding: 0 20px;
   border: none;
+}
+.ant-menu-submenu{
+  /* color:#fff; */
+  border:none;
+}
+.ant-menu-submenu-active{
+  border:none !important;
 }
 .ant-menu-item {
   height: 60px;

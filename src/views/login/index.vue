@@ -24,7 +24,7 @@ export default defineComponent({
   },
 })-->
 <template>
-<div style="background:#fff;height:100%">
+<div style="background:transparent;padding:35px 50px;height:100%">
   <a-tabs class="tab-container" @change="callback">
     <a-tab-pane key="login" tab="登录">
       <a-form ref="validateForm" :wrapperCol="formWrapperCol">
@@ -127,7 +127,7 @@ export default defineComponent({
             if (data.Code == 0) {
               message.success(data.Msg);
               router.push({
-                path: '/home/hello',
+                path: '/index',
               });
             } else {
               message.error(data.Msg);
@@ -233,14 +233,16 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .ant-form-explain,
 .ant-tabs-nav-wrap {
   text-align: left !important;
 }
 .tab-container {
-  width: 60%;
-  margin: auto;
-  height: 400px;
+  width: 100%;
+  padding: 0 10%;
+  min-height: 400px;
+  height: 100%;
+  background: #fff;
 }
 </style>

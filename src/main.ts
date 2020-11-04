@@ -8,6 +8,8 @@ import store from './store/index'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css';
 import SvgIcon from './components/SvgIcon.vue'
+//路由前置守卫
+import './util/check'
 
 //createApp(App).mount('#app')
 const app = createApp(App)
