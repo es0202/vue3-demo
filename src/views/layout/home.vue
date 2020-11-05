@@ -53,12 +53,12 @@ export default defineComponent({
   padding: 0 20px;
   border: none;
 }
-.ant-menu-submenu{
+.ant-menu-submenu {
   /* color:#fff; */
-  border:none;
+  border: none;
 }
-.ant-menu-submenu-active{
-  border:none !important;
+.ant-menu-submenu-active {
+  border: none !important;
 }
 .ant-menu-item {
   height: 60px;

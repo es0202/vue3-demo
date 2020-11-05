@@ -10,7 +10,7 @@ import 'ant-design-vue/dist/antd.css';
 import SvgIcon from './components/SvgIcon.vue'
 //路由前置守卫
 import './util/check'
-
+console.log("proces:"+process.env.NODE_ENV)
 //createApp(App).mount('#app')
 const app = createApp(App)
 app.use(Antd)

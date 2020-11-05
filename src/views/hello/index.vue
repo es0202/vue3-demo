@@ -10,7 +10,7 @@ export default defineComponent({});
 .background-img {
   height: 100%;
   width: auto;
-  background-image:url('/@/assets/img/3.jpg');
+  background-image: url('/@/assets/img/3.jpg');
   background-position: center;
   background-repeat: repeat;
   background-size: contain;
