@@ -3,10 +3,12 @@
     <a-layout-sider :width="'25%'" :style="{position:'fixed'}">
       <div class="avatar-container">
         <img class="avatar-img" src="/@/assets/img/3.jpg" alt />
-        <div class="avatar-name"></div>
-        <div class="avatar-slogan">裹盐赢得小狸奴</div>
+        <div class="avatar-name">ES0202</div>
+        <div class="avatar-slogan">裹盐赢得小狸奴 尽护山房万卷书</div>
       </div>
-      <!-- <tags></tags> -->
+      <div class="tag-position">
+        <tags></tags>
+      </div>
     </a-layout-sider>
     <a-layout class="content-container"></a-layout>
   </a-layout>
@@ -30,9 +32,16 @@ export default defineComponent({
   background: transparent;
   height: 100%;
 }
-.avatar-container {
+::v-deep(.ant-layout-sider-children) {
+  display: flex;
+  flex-direction: column;
   background: #fff;
   height: 100%;
+}
+.avatar-name {
+  font-family: 'Chilanka', cursive;
+  font-size: 20px;
+  line-height: 30px;
 }
 .avatar-img {
   width: 40%;
@@ -40,6 +49,17 @@ export default defineComponent({
   border-radius: 50%;
   text-align: center;
   margin: 20px 0;
+}
+.avatar-slogan {
+  width: 50%;
+  white-space: pre-wrap;
+  display: inline-block;
+  word-break: keep-all;
+}
+.tag-position {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
 }
 .content-container {
   background: #fff;
