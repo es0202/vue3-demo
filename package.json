@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=test vite",
-    "build": "vite build",
+    "build": "cross-env NODE_ENV=test vite build",
     "start": "tsc",
     "server": "nodemon --inspect ./server/app.js"
   },
