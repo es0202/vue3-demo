@@ -10,7 +10,9 @@
         <tags></tags>
       </div>
     </a-layout-sider>
-    <a-layout class="content-container"></a-layout>
+    <a-layout class="content-container">
+      <router-view></router-view>
+    </a-layout>
   </a-layout>
 </template>
 <script lang="ts">
@@ -57,12 +59,13 @@ export default defineComponent({
   word-break: keep-all;
 }
 .tag-position {
-  position: relative;
-  flex: 1;
+  text-align: center;
+  flex: 1 0 90px;
   overflow: hidden;
 }
 .content-container {
   background: #fff;
   margin-left: 27%;
+  padding-top: 20px;
 }
 </style>

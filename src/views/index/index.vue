@@ -1,11 +1,12 @@
 <template>
-  <div>test</div>
+  <timeline></timeline>
 </template>
 <script>
 import {defineComponent} from 'vue'
+import timeline from '/@/components/timeline.vue'
 export default defineComponent({
   setup(){},
-  components: {},
+  components: {timeline},
   data() {
     return {
     };

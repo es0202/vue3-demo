@@ -14,19 +14,18 @@ export default defineComponent({
 </script>
 <style>
 .tags-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 80%;
-  overflow: hidden;
-  box-shadow: 0 4px 8px 6px rgba(7,17,27,.06);
+  box-shadow: 0 4px 8px 6px rgba(7, 17, 27, 0.06);
   padding: 30px 16px;
   border-radius: 6px;
+  line-height: 1;
+  text-align: center;
+  display: inline-block;
+  margin-top: 8px; /*box-shadow边框 */
 }
 
-.ant-tag{
+.ant-tag {
   border-radius: 4px;
-  margin: 0 8px 8px 0;
+  margin-right: 8px;
 }
 </style>
