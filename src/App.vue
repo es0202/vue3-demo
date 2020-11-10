@@ -11,7 +11,7 @@
 <script lang="ts">
 // import Test from './test'
 import HelloWorld from './components/HelloWorld.vue';
-import { register } from '/@/api/login';
+import { register } from './api/login';
 import { reactive, ref } from 'vue';
 export default {
   name: 'App',

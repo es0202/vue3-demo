@@ -62,7 +62,7 @@ export default defineComponent({
 import { ref, defineComponent, reactive, toRefs, toRaw, onUnmounted } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import { message } from 'ant-design-vue';
-import { login, register } from '/@/api/login';
+import { login, register } from '../../api/login';
 import { useRouter } from 'vue-router';
 export default defineComponent({
   data() {
