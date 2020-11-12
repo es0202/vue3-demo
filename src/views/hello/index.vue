@@ -1,5 +1,5 @@
 <template>
-  <div class="background-img"></div>
+  <div class="background-img" style="background-image: url('/@/assets/img/3.jpg')"></div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -10,7 +10,7 @@ export default defineComponent({});
 .background-img {
   height: 100%;
   width: auto;
-  background-image: url('/src/assets/img/3.jpg');
+  /* background-image: url('/@/assets/img/3.jpg'); */
   background-position: center;
   background-repeat: repeat;
   background-size: contain;
