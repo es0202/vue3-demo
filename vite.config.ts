@@ -25,7 +25,10 @@ const config: ServerConfig = {
       target: "http://localhost:3000",
       changeOrigin: true,
       rewrite: (path) => path.replace(/^\/api/, ""),
-    },
+    }
+  },
+  assetsInclude(file) {
+    return /\.(hdr|glb|usdz|png)$/.test(file)
   },
   optimizeDeps: {
     include: ["@ant-design-vue/use"],
