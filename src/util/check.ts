@@ -15,7 +15,13 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    next()
+    if(to.path=="/home/login"){
+      next({
+        path: '/index',
+      })
+    }else{
+      next()
+    }
   }
 })
 

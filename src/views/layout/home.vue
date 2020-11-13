@@ -47,26 +47,26 @@ export default defineComponent({
   overflow: hidden;
 }
 
-.header-menu {
+::v-deep(.header-menu) {
   background-color: #cca8e9;
   text-align: left;
   padding: 0 20px;
   border: none;
 }
-.ant-menu-submenu {
+::v-deep(.ant-menu-submenu) {
   /* color:#fff; */
   border: none;
 }
-.ant-menu-submenu-active {
+::v-deep(.ant-menu-submenu-active) {
   border: none !important;
 }
-.ant-menu-item {
+::v-deep(.ant-menu-item) {
   height: 60px;
   line-height: 60px;
   border: none !important;
   padding: 0 30px;
 }
-.ant-menu-item a {
+::v-deep(.ant-menu-item a) {
   color: #fff !important;
 }
 </style>
